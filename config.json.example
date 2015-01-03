@@ -1,0 +1,19 @@
+{
+	"port": 53,
+	"host": "127.0.0.1",
+	"privileges": {
+		"user": "dns",
+		"group": "dns"
+	},
+	"request_timeout": 600,
+	"routing": [
+		{
+			"type": "A",
+			"filter": [
+				"metachronica.info",
+				"www.metachronica.info"
+			],
+			"address": [ "1.2.3.4" ]
+		}
+	]
+}

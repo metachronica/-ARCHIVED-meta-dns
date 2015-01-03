@@ -1,0 +1,15 @@
+{
+  "name": "meta-dns",
+  "version": "0.0.1",
+  "description": "Metachronica DNS server",
+  "main": "lib/ns.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Viacheslav Lotsmanov",
+  "license": "GNU/GPLv3",
+  "dependencies": {
+    "native-dns": "~0.7",
+    "posix": "^1"
+  }
+}
