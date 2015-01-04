@@ -26,7 +26,7 @@ ERR_FILE=$LOGS_DIR/stderr.log
 FOREVER_LOG_FILE=$LOGS_DIR/forever.log
 
 [ -x "$FOREVER_BIN" ] || { echo "Forever bin not found" 1>&2; exit 1; }
-[ -d "$APP_PATH" ] || { echo "Application directory is not exists"; exit 1; }
+[ -d "$APP_PATH" ] || { echo "Application directory is not exists" 1>&2; exit 1; }
 
 mkdir --parent "$LOGS_DIR"
 
