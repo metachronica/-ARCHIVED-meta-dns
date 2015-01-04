@@ -1,0 +1,56 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          forever node
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Metachronica DNS server
+# Description:       Metachronica DNS server deamon
+### END INIT INFO
+
+# Author: Viacheslav Lotsmanov <lotsmanov89@gmail.com>
+
+PATH=/usr/local/bin:$PATH
+
+NAME=meta-dns
+SCRIPT_NAME=/etc/init.d/$NAME
+FOREVER_BIN=`which forever`
+FOREVER_ROOT=/etc/forever
+APP_PATH=/var/services/$NAME
+APP_FILE=${NAME}.js
+CONFIG_PATH=$APP_PATH/config.json
+LOGS_DIR=/var/log/services/$NAME
+LOG_FILE=$LOGS_DIR/stdout.log
+ERR_FILE=$LOGS_DIR/stderr.log
+FOREVER_LOG_FILE=$LOGS_DIR/forever.log
+
+[ -x "$FOREVER_BIN" ] || { echo "Forever bin not found" 1>&2; exit 1; }
+[ -d "$APP_PATH" ] || { echo "Application directory is not exists"; exit 1; }
+
+mkdir --parent "$LOGS_DIR"
+
+[ -d "$LOGS_DIR" ] || { echo "Logs directory is not exists" 1>&2; exit 1; }
+
+case "$1" in
+	start)
+		env CONFIG_PATH="$CONFIG_PATH" \
+			FOREVER_ROOT="$FOREVER_ROOT" \
+			forever --sourceDir="$APP_PATH" \
+			-a -l "$FOREVER_LOG_FILE" \
+			-o "$LOG_FILE" -e "$ERR_FILE" \
+			start "$APP_FILE"
+		;;
+	stop)
+		env FOREVER_ROOT="$FOREVER_ROOT" forever stop "$APP_PATH/$APP_FILE"
+		;;
+	status)
+		env FOREVER_ROOT="$FOREVER_ROOT" forever list
+		;;
+	*)
+		echo "Usage: $SCRIPTNAME {start|stop|status}" >&2
+		exit 3
+		;;
+esac
+
+:
