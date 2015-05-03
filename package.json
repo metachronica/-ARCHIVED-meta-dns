@@ -9,7 +9,7 @@
   "author": "Viacheslav Lotsmanov",
   "license": "GNU/GPLv3",
   "dependencies": {
-    "native-dns": "~0.7",
-    "posix": "^2"
+    "native-dns": "~0.7.0",
+    "posix": "^2.0.0"
   }
 }
